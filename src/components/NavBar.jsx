@@ -1,32 +1,26 @@
-import { Link } from 'react-router-dom';
 import { logout } from '../config';
 import { useUserContext } from '../context';
+import { Button } from '@mui/material';
 
 const Navbar = () => {
   const { user } = useUserContext();
 
   const handleLogout = async () => {
     try {
-      const reponse = await logout();
-      console.log(reponse);
+      await logout();
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <nav>
-      {user ? (
-        <div>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      ) : (
-        <div>
-          <Link to="/">Login</Link>
-          <Link to="/register">Register</Link>
-        </div>
+    <>
+      {user && (
+        <Button onClick={handleLogout} variant="contained">
+          Logout
+        </Button>
       )}
-    </nav>
+    </>
   );
 };
 
